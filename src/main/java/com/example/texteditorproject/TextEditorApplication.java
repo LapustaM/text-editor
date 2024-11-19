@@ -10,8 +10,8 @@ import java.io.IOException;
 public class TextEditorApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(TextEditorApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        FXMLLoader fxmlLoader = new FXMLLoader(TextEditorApplication.class.getResource("main-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         stage.setTitle("Text Editor");
         stage.setScene(scene);
         stage.show();

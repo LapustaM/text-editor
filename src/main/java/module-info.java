@@ -4,5 +4,6 @@ module com.example.texteditorproject {
 
 
     opens com.example.texteditorproject to javafx.fxml;
+    exports com.example.texteditorproject.ui; // Експортуємо пакет для JavaFX
     exports com.example.texteditorproject;
 }
