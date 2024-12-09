@@ -14,7 +14,7 @@ public class MainController {
 
     private final FileService fileService = new FileService();
 
-    public void openFile() {
+    public void openFile() throws Exception {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Text Files", "*.txt")
@@ -23,8 +23,11 @@ public class MainController {
         // choose file window
         File file = fileChooser.showOpenDialog(new Stage());
         if (file != null) {
-            String content = fileService.readFile(file);
+            String content = fileService.readFileWithEncoding(file, "windows-1252");
             textArea.setText(content);
         }
+    }
+    public void chooseEncoding() throws Exception {
+
     }
 }

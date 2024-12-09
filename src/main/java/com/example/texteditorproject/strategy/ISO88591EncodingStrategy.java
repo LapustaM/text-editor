@@ -2,10 +2,9 @@ package com.example.texteditorproject.strategy;
 
 import java.nio.charset.StandardCharsets;
 
-public class UTF8EncodingStrategy implements EncodingStrategy{
-
+public class ISO88591EncodingStrategy implements EncodingStrategy {
     @Override
     public String decode(byte[] data) throws Exception {
-        return new String(data, StandardCharsets.UTF_8);
+        return new String(data, StandardCharsets.ISO_8859_1);
     }
 }

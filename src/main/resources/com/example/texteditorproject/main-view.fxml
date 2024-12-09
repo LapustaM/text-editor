@@ -7,6 +7,7 @@
     <MenuBar>
         <Menu text="File">
             <MenuItem text="Open" onAction="#openFile" />
+            <MenuItem text="Encoding" onAction="#chooseEncoding" />
         </Menu>
     </MenuBar>
     <TextArea fx:id="textArea" prefHeight="600" prefWidth="800" />
