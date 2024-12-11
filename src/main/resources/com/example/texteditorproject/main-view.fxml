@@ -10,5 +10,10 @@
             <MenuItem text="Encoding" onAction="#chooseEncoding" />
         </Menu>
     </MenuBar>
+    <ToolBar>
+        <Button fx:id="copyButton" text="Copy" />
+        <Button fx:id="cutButton" text="Cut" />
+        <Button fx:id="pasteButton" text="Paste" />
+    </ToolBar>
     <TextArea fx:id="textArea" prefHeight="600" prefWidth="800" />
 </VBox>

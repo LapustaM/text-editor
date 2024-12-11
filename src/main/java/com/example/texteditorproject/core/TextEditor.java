@@ -23,7 +23,7 @@ public class TextEditor {
     public void undoCommand() {
         if (!commands.isEmpty()) {
             Command command = commands.remove(commands.size() - 1);
-            command.undo();
+//            command.undo();
         }
     }
 }

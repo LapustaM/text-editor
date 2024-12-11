@@ -1,8 +1,13 @@
 package com.example.texteditorproject.ui;
 
+import com.example.texteditorproject.command.Command;
+import com.example.texteditorproject.command.CopyCommand;
+import com.example.texteditorproject.command.CutCommand;
+import com.example.texteditorproject.command.PasteCommand;
 import com.example.texteditorproject.service.FileService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
@@ -16,9 +21,21 @@ import java.util.Optional;
 public class MainController {
     @FXML
     public TextArea textArea;
+    @FXML
+    public Button copyButton, pasteButton, cutButton;
 
     private final FileService fileService = new FileService();
     private File currentFile;
+
+    public void initialize() {
+        Command copyCommand = new CopyCommand(textArea);
+        Command pasteCommand = new PasteCommand(textArea);
+        Command cutCommand = new CutCommand(textArea);
+
+        copyButton.setOnAction(e -> copyCommand.execute());
+        pasteButton.setOnAction(e -> pasteCommand.execute());
+        cutButton.setOnAction(e -> cutCommand.execute());
+    }
 
     public void openFile() throws Exception {
         FileChooser fileChooser = new FileChooser();
@@ -30,7 +47,7 @@ public class MainController {
         File file = fileChooser.showOpenDialog(new Stage());
         if (file != null) {
             currentFile = file;
-            String content = fileService.readFileWithEncoding(file, "windows-1252");
+            String content = fileService.readFileWithEncoding(file, "utf-8");
             textArea.setText(content);
         }
     }
