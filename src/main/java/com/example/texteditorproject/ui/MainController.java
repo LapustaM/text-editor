@@ -1,9 +1,6 @@
 package com.example.texteditorproject.ui;
 
-import com.example.texteditorproject.command.Command;
-import com.example.texteditorproject.command.CopyCommand;
-import com.example.texteditorproject.command.CutCommand;
-import com.example.texteditorproject.command.PasteCommand;
+import com.example.texteditorproject.command.*;
 import com.example.texteditorproject.service.FileService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -24,17 +21,22 @@ public class MainController {
     @FXML
     public Button copyButton, pasteButton, cutButton;
 
+    private CommandInvoker invoker;
+
     private final FileService fileService = new FileService();
     private File currentFile;
 
     public void initialize() {
-        Command copyCommand = new CopyCommand(textArea);
-        Command pasteCommand = new PasteCommand(textArea);
-        Command cutCommand = new CutCommand(textArea);
+        TextEditorReceiver receiver = new TextEditorReceiver(textArea);
+        invoker = new CommandInvoker();
 
-        copyButton.setOnAction(e -> copyCommand.execute());
-        pasteButton.setOnAction(e -> pasteCommand.execute());
-        cutButton.setOnAction(e -> cutCommand.execute());
+        Command copyCommand = new CopyCommand(receiver);
+        Command pasteCommand = new PasteCommand(receiver);
+        Command cutCommand = new CutCommand(receiver);
+
+        copyButton.setOnAction(e -> invoker.executeCommand(copyCommand));
+        pasteButton.setOnAction(e -> invoker.executeCommand(pasteCommand));
+        cutButton.setOnAction(e -> invoker.executeCommand(cutCommand));
     }
 
     public void openFile() throws Exception {
