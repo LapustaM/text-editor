@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.text.TextFlow?>
 <VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.texteditorproject.ui.MainController">
     <MenuBar>
         <Menu text="File">
@@ -15,5 +16,8 @@
         <Button fx:id="cutButton" text="Cut" />
         <Button fx:id="pasteButton" text="Paste" />
     </ToolBar>
-    <TextArea fx:id="textArea" prefHeight="600" prefWidth="800" />
+    <SplitPane orientation="VERTICAL">
+        <TextArea fx:id="textArea" prefHeight="300" />
+        <TextFlow fx:id="textFlow" prefHeight="300" />
+    </SplitPane>
 </VBox>

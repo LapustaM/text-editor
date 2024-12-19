@@ -1,12 +1,16 @@
 package com.example.texteditorproject.ui;
 
 import com.example.texteditorproject.command.*;
+import com.example.texteditorproject.observer.EditorSubject;
+import com.example.texteditorproject.observer.SyntaxHighlighter;
 import com.example.texteditorproject.service.FileService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -19,8 +23,12 @@ public class MainController {
     @FXML
     public TextArea textArea;
     @FXML
+    public TextFlow textFlow;
+    @FXML
+    public VBox editorContainer;
+    @FXML
     public Button copyButton, pasteButton, cutButton;
-
+    private final EditorSubject editorSubject = new EditorSubject();
     private CommandInvoker invoker;
 
     private final FileService fileService = new FileService();
@@ -37,6 +45,13 @@ public class MainController {
         copyButton.setOnAction(e -> invoker.executeCommand(copyCommand));
         pasteButton.setOnAction(e -> invoker.executeCommand(pasteCommand));
         cutButton.setOnAction(e -> invoker.executeCommand(cutCommand));
+
+        SyntaxHighlighter highlighter = new SyntaxHighlighter(textFlow);
+        editorSubject.registerObserver(highlighter);
+
+        textArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            editorSubject.notifyObservers(newValue);
+        });
     }
 
     public void openFile() throws Exception {
