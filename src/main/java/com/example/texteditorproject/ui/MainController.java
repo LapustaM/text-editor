@@ -3,12 +3,10 @@ package com.example.texteditorproject.ui;
 import com.example.texteditorproject.command.*;
 import com.example.texteditorproject.observer.EditorSubject;
 import com.example.texteditorproject.observer.SyntaxHighlighter;
+import com.example.texteditorproject.observer.SyntaxObserver;
 import com.example.texteditorproject.service.FileService;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
@@ -21,6 +19,8 @@ import java.util.Optional;
 
 public class MainController {
     @FXML
+    public SplitPane splitPane;
+    @FXML
     public TextArea textArea;
     @FXML
     public TextFlow textFlow;
@@ -28,7 +28,12 @@ public class MainController {
     public VBox editorContainer;
     @FXML
     public Button copyButton, pasteButton, cutButton;
+    @FXML
+    public MenuItem syntaxHighlightMenuItem;
+
     private final EditorSubject editorSubject = new EditorSubject();
+    private boolean isSyntaxViewVisible = true;
+
     private CommandInvoker invoker;
 
     private final FileService fileService = new FileService();
@@ -46,12 +51,13 @@ public class MainController {
         pasteButton.setOnAction(e -> invoker.executeCommand(pasteCommand));
         cutButton.setOnAction(e -> invoker.executeCommand(cutCommand));
 
-        SyntaxHighlighter highlighter = new SyntaxHighlighter(textFlow);
+        SyntaxObserver highlighter = new SyntaxHighlighter(textFlow);
         editorSubject.registerObserver(highlighter);
 
         textArea.textProperty().addListener((observable, oldValue, newValue) -> {
             editorSubject.notifyObservers(newValue);
         });
+        syntaxHighlightMenuItem.setOnAction(event -> toggleSyntaxView());
     }
 
     public void openFile() throws Exception {
@@ -68,6 +74,7 @@ public class MainController {
             textArea.setText(content);
         }
     }
+
     public void chooseEncoding() {
         //alert if file not opened
         if (currentFile == null) {
@@ -105,4 +112,19 @@ public class MainController {
         }
 
     }
+
+    private void toggleSyntaxView() {
+        if (isSyntaxViewVisible) {
+            // Видаляємо TextFlow
+            splitPane.getItems().remove(textFlow);
+            syntaxHighlightMenuItem.setText("Show Syntax Highlight Window");
+            textArea.autosize();
+        } else {
+            // Додаємо TextFlow назад
+            splitPane.getItems().add(textFlow);
+            syntaxHighlightMenuItem.setText("Hide Syntax Highlight Window");
+        }
+        isSyntaxViewVisible = !isSyntaxViewVisible;
+    }
 }
+

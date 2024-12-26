@@ -1,5 +1,6 @@
 package com.example.texteditorproject.observer;
 
+import com.example.texteditorproject.observer.SyntaxObserver;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -13,18 +14,29 @@ public class SyntaxHighlighter implements SyntaxObserver {
     @Override
     public void update(String content) {
         textFlow.getChildren().clear();
-        String[] tokens = content.split("\\s+");
 
-        for (String token : tokens) {
-            Text text = new Text(token + " ");
-            if (token.matches("(if|else|for|while|return|int|void|String)")) { // Ключові слова Java
-                text.setStyle("-fx-fill: blue; -fx-font-weight: bold;");
-            } else if (token.matches("[0-9]+")) { // Числа
-                text.setStyle("-fx-fill: red;");
-            } else {
-                text.setStyle("-fx-fill: black;");
+        // Розширений список ключових слів Java
+        String keywordsRegex = "\\b(if|else|for|while|return|int|void|String|class|public|private|protected|static|final|new|try|catch|throw|throws|extends|implements)\\b";
+        String numberRegex = "\\b\\d+\\b";
+
+        // Поділ тексту з урахуванням рядків та пробілів
+        String[] lines = content.split("\n");
+
+        for (String line : lines) {
+            String[] tokens = line.split("(?<=\\s)|(?=\\s)");
+
+            for (String token : tokens) {
+                Text text = new Text(token);
+                if (token.matches(keywordsRegex)) { // Ключові слова
+                    text.setStyle("-fx-fill: blue; -fx-font-weight: bold;");
+                } else if (token.matches(numberRegex)) { // Числа
+                    text.setStyle("-fx-fill: green;");
+                } else {
+                    text.setStyle("-fx-fill: black;");
+                }
+                textFlow.getChildren().add(text);
             }
-            textFlow.getChildren().add(text);
+            textFlow.getChildren().add(new Text("\n")); // Додаємо новий рядок
         }
     }
 }

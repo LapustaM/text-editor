@@ -10,13 +10,16 @@
             <MenuItem text="Open" onAction="#openFile" />
             <MenuItem text="Encoding" onAction="#chooseEncoding" />
         </Menu>
+        <Menu text="View">
+            <MenuItem fx:id="syntaxHighlightMenuItem" text="Hide Syntax Highlight Window" />
+        </Menu>
     </MenuBar>
     <ToolBar>
         <Button fx:id="copyButton" text="Copy" />
         <Button fx:id="cutButton" text="Cut" />
         <Button fx:id="pasteButton" text="Paste" />
     </ToolBar>
-    <SplitPane orientation="VERTICAL">
+    <SplitPane fx:id="splitPane" orientation="VERTICAL">
         <TextArea fx:id="textArea" prefHeight="300" />
         <TextFlow fx:id="textFlow" prefHeight="300" />
     </SplitPane>
