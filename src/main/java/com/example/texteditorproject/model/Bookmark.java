@@ -1,25 +1,21 @@
 package com.example.texteditorproject.model;
 
+import com.google.gson.annotations.Expose;
+
 public class Bookmark {
-    private int id;
-    private String filePath;
-    private String name;
-    private int lineNumber;
+    @Expose
+    public String filePath;
 
-    public Bookmark(int id, String filePath, String name, int lineNumber) {
-        this.id = id;
+    @Expose
+    public String textSnippet;
+
+    @Expose
+    public int position;
+
+    public Bookmark(String filePath, String textSnippet, int position) {
         this.filePath = filePath;
-        this.name = name;
-        this.lineNumber = lineNumber;
-    }
-
-    // Getters and Setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.textSnippet = textSnippet;
+        this.position = position;
     }
 
     public String getFilePath() {
@@ -30,19 +26,24 @@ public class Bookmark {
         this.filePath = filePath;
     }
 
-    public int getLineNumber() {
-        return lineNumber;
+    public String getTextSnippet() {
+        return textSnippet;
     }
 
-    public String getName() {
-        return name;
+    public void setTextSnippet(String textSnippet) {
+        this.textSnippet = textSnippet;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getPosition() {
+        return position;
     }
 
-    public void setLineNumber(int lineNumber) {
-        this.lineNumber = lineNumber;
+    public void setPosition(int position) {
+        this.position = position;
     }
+    @Override
+    public String toString() {
+        return "..." + textSnippet + "...";
+    }
+
 }

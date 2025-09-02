@@ -14,7 +14,6 @@ public class Document {
         this.encoding = encoding;
     }
 
-    // Getters and Setters
     public String getFilePath() {
         return filePath;
     }

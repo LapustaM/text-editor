@@ -3,10 +3,10 @@ package com.example.texteditorproject.observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditorSubject {
+public class EditorSubject implements Subject{
     private final List<SyntaxObserver> observers = new ArrayList<>();
 
-    public void registerObserver(SyntaxObserver observer) {
+    public void addObserver(SyntaxObserver observer) {
         observers.add(observer);
     }
 

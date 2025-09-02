@@ -11,7 +11,6 @@ public class Snippet {
         this.content = content;
     }
 
-    // Getters and Setters
     public int getId() {
         return id;
     }

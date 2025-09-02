@@ -3,7 +3,7 @@ package com.example.texteditorproject.model;
 public class Macro {
     private int id;
     private String name;
-    private String actions; // Serialized list of actions or commands in this macro
+    private String actions;
 
     public Macro(int id, String name, String actions) {
         this.id = id;
@@ -11,7 +11,6 @@ public class Macro {
         this.actions = actions;
     }
 
-    // Getters and Setters
     public int getId() {
         return id;
     }

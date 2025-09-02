@@ -7,11 +7,19 @@
 <VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.texteditorproject.ui.MainController">
     <MenuBar>
         <Menu text="File">
+            <MenuItem text="New" onAction="#createNewFile" />
             <MenuItem text="Open" onAction="#openFile" />
+            <MenuItem text="Save" onAction="#saveFile" />
+            <MenuItem text="Save As" onAction="#saveFileAs" />
             <MenuItem text="Encoding" onAction="#chooseEncoding" />
+
         </Menu>
         <Menu text="View">
             <MenuItem fx:id="syntaxHighlightMenuItem" text="Hide Syntax Highlight Window" />
+        </Menu>
+        <Menu text="Bookmarks">
+            <MenuItem text="Add Bookmark" onAction="#addBookmark" />
+            <MenuItem text="View Bookmarks" onAction="#viewBookmarks" />
         </Menu>
     </MenuBar>
     <ToolBar>
